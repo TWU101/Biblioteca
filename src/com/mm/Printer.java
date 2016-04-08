@@ -1,7 +1,7 @@
 package com.mm;
 
 public class Printer {
-    Menu menu = new Menu();
+    Application application = new Application();
     Library library = new Library();
 
     public void printWelcome() {
@@ -9,8 +9,8 @@ public class Printer {
     }
 
     public void printMenu(){
-        System.out.println("Menu Options:");
-        for (String option : menu.getMenuOptions()) {
+        System.out.println("Application Options:");
+        for (String option : application.getMenuOptions()) {
             System.out.println(option);
         }
     }
@@ -18,7 +18,7 @@ public class Printer {
     public void printBookList() {
         System.out.println("\nBook list:");
         for (Book book : library.getBookList()) {
-            System.out.println(book.getName());
+            System.out.println(book.getTitle());
         }
     }
 }

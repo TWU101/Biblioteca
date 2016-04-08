@@ -2,13 +2,18 @@ package com.mm;
 
 public class Book {
 
-    private String name;
+    private String title;
+    private String author;
 
-    public Book(String bookName){
-        name = bookName;
+    public Book(String bookTitle){
+        title = bookTitle;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 }
