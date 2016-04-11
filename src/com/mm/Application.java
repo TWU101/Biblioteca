@@ -17,7 +17,8 @@ public class Application {
         library.add(new Book("TDD By Example", "Kent Beck", 2007));
         library.add(new Book("Harry Potter", "JK Rowling", 2005));
 
-        mainMenu.add("1) List Books: ");
+        mainMenu.add("1) List Books");
+        mainMenu.add("2) Quit");
     }
 
     public ArrayList<Book> getLibrary() {
@@ -58,6 +59,10 @@ public class Application {
                     return continueAskingForUserInput;
                 case 1:
                     printBookList();
+                    return continueAskingForUserInput;
+                case 2:
+                    System.out.println("BYE BYE");
+                    continueAskingForUserInput = false;
                     return continueAskingForUserInput;
                 default:
                     System.out.println("Sorry, that is not a valid option :(");
