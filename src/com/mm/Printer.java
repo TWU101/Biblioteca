@@ -13,4 +13,8 @@ public class Printer {
             System.out.println(object);
         }
     }
+
+    public void printSeperator(){
+        System.out.println("============================");
+    }
 }
