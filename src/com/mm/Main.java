@@ -8,7 +8,7 @@ public class Main {
         boolean continueAskingForUserInput = true;
         Scanner readUserInput = new Scanner(System.in);
         Application application = new Application();
-        Application.InputHandler inputHandler = application.new InputHandler();
+        InputHandler inputHandler = new InputHandler(application);
 
         application.setUp();
         application.printWelcome();
@@ -16,7 +16,7 @@ public class Main {
         while (continueAskingForUserInput) {
             application.printMainMenu();
             int userSelectedMenuOption = inputHandler.getUserInput(readUserInput);
-            continueAskingForUserInput = inputHandler.getOption(userSelectedMenuOption, readUserInput);
+            continueAskingForUserInput = inputHandler.getOption(userSelectedMenuOption);
         }
 
     }

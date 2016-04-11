@@ -23,6 +23,7 @@ public class PrinterTest {
     public void shouldPrintTestMessage() {
         printer.printMessage("test");
         assertThat(outContent.toString(), is("test\n"));
+
     }
 
 }

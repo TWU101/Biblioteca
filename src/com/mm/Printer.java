@@ -17,4 +17,8 @@ public class Printer {
     public void printSeperator(){
         System.out.println("============================");
     }
+
+    public void printBlankLine(){
+        System.out.println();
+    }
 }
