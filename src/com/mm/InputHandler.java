@@ -28,7 +28,7 @@ public class InputHandler {
                     printer.printMessage("Please only input valid numbers, not letters.");
                     return continueAskingForUserInput;
                 case 1:
-                    application.printBookList();
+                    application.printAvailableBookList();
                     return continueAskingForUserInput;
                 case 2:
                     printer.printMessage("CHECKOUT BOOK OPTION SELECTED");

@@ -1,19 +1,31 @@
 package com.mm;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ApplicationTest {
 
+    private Application application;
+
+    @Before
+    public void setUp() throws Exception {
+        application = new Application();
+        application.setUp();
+    }
+
     @Test
     public void shouldSetUpLibraryBooks() {
-        Application application = new Application();
-        application.setUp();
-        assertEquals(application.getLibrary().size(), 4);
+        assertEquals(4, application.getLibrarySize());
     }
 
 
-
+    @Test
+    public void shouldCheckOutBook(){
+        Book book = new Book("Test", "Test Author", 2016);
+        assertTrue(application.checkOutBook(book));
+    }
 
 }
