@@ -32,16 +32,20 @@ public class Application {
         printer.printList(mainMenu);
     }
 
-    public boolean checkOutBook(Book book) {
-        return true;
+    public void checkOutBook() {
+
     }
 
     public void printAvailableBookList() {
-        library.printAvailableBookList();
+        printer.printList(library.getAvailableBookList());
     }
 
     public ArrayList<Book> getCompleteLibrary() {
         return library.getCompleteLibrary();
+    }
+
+    public void printCompleteLibrary() {
+        printer.printList(getCompleteLibrary());
     }
 
     public int getLibrarySize() {

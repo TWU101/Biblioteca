@@ -13,8 +13,14 @@ public class Library {
         library.add(book);
     }
 
-    public ArrayList printAvailableBookList() {
-        return null;
+    public ArrayList<Book> getAvailableBookList() {
+        ArrayList<Book> availableBooks = new ArrayList<>();
+        for (Book book : library) {
+            if (!book.checkedOut){
+                availableBooks.add(book);
+            }
+        }
+        return availableBooks;
     }
 
     public ArrayList<Book> getCompleteLibrary() {

@@ -31,10 +31,11 @@ public class InputHandler {
                     application.printAvailableBookList();
                     return continueAskingForUserInput;
                 case 2:
+                    application.printAvailableBookList();
                     printer.printMessage("CHECKOUT BOOK OPTION SELECTED");
                     return continueAskingForUserInput;
                 case 3:
-                    System.out.println("BYE BYE");
+                    printer.printMessage("BYE BYE");
                     continueAskingForUserInput = false;
                     return continueAskingForUserInput;
                 default:

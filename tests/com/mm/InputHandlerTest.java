@@ -38,11 +38,19 @@ public class InputHandlerTest {
     }
 
     @Test
-    public void shouldCallMethodToPrintBookList(){
+    public void shouldCallMethodToPrintAvailableBookList(){
         Application application = mock(Application.class);
         InputHandler inputHandler = new InputHandler(application);
-
         inputHandler.getOption(1);
         verify(application, times(1)).printAvailableBookList();
     }
+
+//    @Test
+//    public void shouldCallMethodToCheckOutBook(){
+//        Application application = mock(Application.class);
+//        Book book = mock(Book.class);
+//        InputHandler inputHandler = new InputHandler(application);
+//        inputHandler.getOption(1);
+//        verify(application, times(1)).checkOutBook(book);
+//    }
 }

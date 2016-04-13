@@ -1,6 +1,6 @@
 package com.mm;
 
-public class Book {
+public class Book{
 
     private String title;
     private String author;
@@ -26,13 +26,24 @@ public class Book {
         return yearPublished;
     }
 
+    public void checkOut() {
+        checkedOut = true;
+    }
 
     @Override
     public String toString() {
         return title + " | " + author + " | " + yearPublished;
     }
 
-    public void checkOut() {
-        checkedOut = true;
+    @Override
+    public boolean equals(Object otherBook) {
+        if (this == otherBook) return true;
+        if (!(otherBook instanceof Book)) return false;
+
+        Book book = (Book)otherBook;
+        return
+                ( this.title == book.title ) &&
+                        ( this.author == book.author ) &&
+                        ( this.yearPublished == book.yearPublished );
     }
 }

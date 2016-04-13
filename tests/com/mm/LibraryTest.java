@@ -25,4 +25,10 @@ public class LibraryTest {
         assertTrue(book.checkedOut);
     }
 
+//    @Test
+//    public void shouldFindBookAndCheckOut(){
+//        Book book = new Book("Java for Dummies", "John Smith", 2005);
+//        System.out.println(library.getAvailableBookList().get(0));
+//    }
+
 }
