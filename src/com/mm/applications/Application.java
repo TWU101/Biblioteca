@@ -23,14 +23,13 @@ public class Application {
         library.addToLibrary(new Book("TDD By Example", "Kent Beck", 2007));
         library.addToLibrary(new Book("Harry Potter", "JK Rowling", 2005));
 
-        mainMenu.add("List Books");
+        mainMenu.add("List All Books");
         mainMenu.add("Checkout Book");
         mainMenu.add("Return Book");
-        mainMenu.add("Quit");
     }
 
     public void printWelcome() {
-        printer.printMessage("Welcome!");
+        printer.printWelcome();
     }
 
 
@@ -41,9 +40,11 @@ public class Application {
 
     public void checkOutBook(){
         final int SELECTION_OFFSET = 1;
-        printer.printHeading("Select the Number Of The Book To Checkout");
+        printer.printHeading("Select the Number Of The Book To Checkout", true);
         printer.printEnumeratedList(getAvailableBookList());
-        int userSelectedBookToCheckOut = inputHandler.getUserInput(readUserInput) - SELECTION_OFFSET;
+        int userInput = inputHandler.getUserInput(readUserInput);
+        if (userInput == -3) { return;}
+        int userSelectedBookToCheckOut = userInput - SELECTION_OFFSET;
         Book selectedBook = library.getAvailableBookList().get(userSelectedBookToCheckOut);
         library.checkOutBook(selectedBook);
         printer.printSuccesfulCheckoutMessage();
@@ -52,9 +53,11 @@ public class Application {
 
     public void returnBook() {
         final int SELECTION_OFFSET = 1;
-        printer.printHeading("Select the Number Of The Book To Return");
+        printer.printHeading("Select the Number Of The Book To Return", true);
         printer.printEnumeratedList(getCheckedOutBookList());
-        int userSelectedBookToReturn = inputHandler.getUserInput(readUserInput) - SELECTION_OFFSET;
+        int userInput = inputHandler.getUserInput(readUserInput);
+        if (userInput == -3) { return;}
+        int userSelectedBookToReturn = userInput - SELECTION_OFFSET;
         Book selectedBook = library.getCheckedOutBookList().get(userSelectedBookToReturn);
         library.returnBook(selectedBook);
         printer.printSuccessfullReturnMessage();

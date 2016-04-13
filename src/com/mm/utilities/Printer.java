@@ -14,7 +14,7 @@ public class Printer {
         }
     }
 
-    public void printSeperator(){
+    public void printSeparator(){
         System.out.println("============================");
     }
 
@@ -24,9 +24,13 @@ public class Printer {
 
     public void printEnumeratedList(List list) {
         int counter = 1;
-        for (Object object : list) {
-            System.out.println(counter + ") " + object);
-            counter++;
+        if (list.isEmpty())
+            printMessage("Nothing here!");
+        else{
+            for (Object object : list) {
+                System.out.println(counter + ") " + object);
+                counter++;
+            }
         }
     }
 
@@ -37,10 +41,26 @@ public class Printer {
     public void printHeading(String message) {
         printBlankLine();
         printMessage(message);
-        printSeperator();
+        printSeparator();
+    }
+
+    public void printHeading(String message, boolean printBackInstructions) {
+        printBlankLine();
+        printMessage(message);
+        printBackInstructions();
+        printSeparator();
     }
 
     public void printSuccessfullReturnMessage() {
-        System.out.println("Book successfully returned!");
+        System.out.println("Thank you for returning the book!");
+    }
+
+    public void printWelcome(){
+        printMessage("Welcome");
+        printMessage("Type " + (char)27 + "[1mquit" + (char)27 + "[0m to exit the application at any point.");
+    }
+
+    public void printBackInstructions() {
+        printMessage("Type " + (char)27 + "[1mback" + (char)27 + "[0m to return to the previous menu.");
     }
 }

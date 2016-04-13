@@ -32,6 +32,9 @@ public class InputHandler {
     public boolean performSelectedMenuOption(int userSelectedMenuOption) {
             boolean continueAskingForUserInput = true;
             switch (userSelectedMenuOption) {
+                case -3:
+                    printer.printMessage("At highest level! Type" + (char)27 + "[1m quit" + (char)27 + "[0m to quit the application.");
+                    return continueAskingForUserInput;
                 case -2:
                     printer.printMessage("BYE BYE");
                     continueAskingForUserInput = false;
