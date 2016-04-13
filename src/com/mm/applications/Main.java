@@ -1,4 +1,6 @@
-package com.mm;
+package com.mm.applications;
+
+import com.mm.utilities.InputHandler;
 
 import java.util.Scanner;
 
@@ -16,7 +18,7 @@ public class Main {
         while (continueAskingForUserInput) {
             application.printMainMenu();
             int userSelectedMenuOption = inputHandler.getUserInput(readUserInput);
-            continueAskingForUserInput = inputHandler.getOption(userSelectedMenuOption);
+            continueAskingForUserInput = inputHandler.performSelectedMenuOption(userSelectedMenuOption);
         }
 
     }

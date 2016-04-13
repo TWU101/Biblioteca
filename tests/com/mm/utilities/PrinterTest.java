@@ -1,4 +1,4 @@
-package com.mm;
+package com.mm.utilities;
 
 import org.junit.Before;
 import org.junit.Test;

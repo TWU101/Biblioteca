@@ -1,11 +1,11 @@
-package com.mm;
+package com.mm.utilities;
 
+import com.mm.applications.Application;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
-
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -15,7 +15,7 @@ public class InputHandlerTest {
 
     @Test
     public void shouldReturn2WhenInputIs2() {
-        Application  application = new Application();
+        Application application = new Application();
         InputHandler inputHandler= new InputHandler(application);
 
         String input = "2";
@@ -38,19 +38,18 @@ public class InputHandlerTest {
     }
 
     @Test
-    public void shouldCallMethodToPrintAvailableBookList(){
+    public void shouldCallMethodToPrintCompleteLibrary(){
         Application application = mock(Application.class);
         InputHandler inputHandler = new InputHandler(application);
-        inputHandler.getOption(1);
-        verify(application, times(1)).printAvailableBookList();
+        inputHandler.performSelectedMenuOption(1);
+        verify(application, times(1)).printCompleteLibrary();
     }
 
-//    @Test
-//    public void shouldCallMethodToCheckOutBook(){
-//        Application application = mock(Application.class);
-//        Book book = mock(Book.class);
-//        InputHandler inputHandler = new InputHandler(application);
-//        inputHandler.getOption(1);
-//        verify(application, times(1)).checkOutBook(book);
-//    }
+    @Test
+    public void shouldCallMethodToCheckOutBook(){
+        Application application = mock(Application.class);
+        InputHandler inputHandler = new InputHandler(application);
+        inputHandler.performSelectedMenuOption(2);
+        verify(application, times(1)).checkOutBook();
+    }
 }

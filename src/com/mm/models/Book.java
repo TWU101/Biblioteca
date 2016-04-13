@@ -1,4 +1,4 @@
-package com.mm;
+package com.mm.models;
 
 public class Book{
 
@@ -35,15 +35,8 @@ public class Book{
         return title + " | " + author + " | " + yearPublished;
     }
 
-    @Override
-    public boolean equals(Object otherBook) {
-        if (this == otherBook) return true;
-        if (!(otherBook instanceof Book)) return false;
 
-        Book book = (Book)otherBook;
-        return
-                ( this.title == book.title ) &&
-                        ( this.author == book.author ) &&
-                        ( this.yearPublished == book.yearPublished );
+    public void returnBook() {
+        checkedOut = false;
     }
 }

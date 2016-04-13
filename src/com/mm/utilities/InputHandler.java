@@ -1,6 +1,7 @@
-package com.mm;
+package com.mm.utilities;
 
-import java.util.InputMismatchException;
+import com.mm.applications.Application;
+
 import java.util.Scanner;
 
 public class InputHandler {
@@ -13,30 +14,39 @@ public class InputHandler {
     }
 
     public int getUserInput(Scanner input) {
+        String inputStr = input.nextLine();
+
             try {
-                return input.nextInt();
-            } catch (InputMismatchException e) {
-                input.next();
+                return Integer.parseInt(inputStr);
+            } catch (NumberFormatException e) {
+                if (("q".equalsIgnoreCase(inputStr)) || ("quit").equalsIgnoreCase(inputStr)){
+                    return -2;
+                }
+                if (("b".equalsIgnoreCase(inputStr)) || ("back").equalsIgnoreCase(inputStr)){
+                    return -3;
+                }
                 return -1;
             }
         }
 
-    public boolean getOption(int userSelectedMenuOption) {
+    public boolean performSelectedMenuOption(int userSelectedMenuOption) {
             boolean continueAskingForUserInput = true;
             switch (userSelectedMenuOption) {
+                case -2:
+                    printer.printMessage("BYE BYE");
+                    continueAskingForUserInput = false;
+                    return continueAskingForUserInput;
                 case -1:
                     printer.printMessage("Please only input valid numbers, not letters.");
                     return continueAskingForUserInput;
                 case 1:
-                    application.printAvailableBookList();
+                    application.printCompleteLibrary();
                     return continueAskingForUserInput;
                 case 2:
-                    application.printAvailableBookList();
-                    printer.printMessage("CHECKOUT BOOK OPTION SELECTED");
+                    application.checkOutBook();
                     return continueAskingForUserInput;
                 case 3:
-                    printer.printMessage("BYE BYE");
-                    continueAskingForUserInput = false;
+                   application.returnBook();
                     return continueAskingForUserInput;
                 default:
                     printer.printMessage("Sorry, that is not a valid option :(");

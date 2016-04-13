@@ -1,5 +1,6 @@
-package com.mm;
+package com.mm.applications;
 
+import com.mm.models.Book;
 import org.junit.Before;
 import org.junit.Test;
 
