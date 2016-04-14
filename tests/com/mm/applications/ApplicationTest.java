@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class ApplicationTest {
 
@@ -24,8 +25,9 @@ public class ApplicationTest {
 
     @Test
     public void shouldCheckOutBook(){
-        Book book = new Book("Test", "Test Author", 2016);
-//        assertTrue(application.checkOutBook(book));
+        Book book = mock(Book.class);
+        application.checkOutBook();
+        verify(book, times(1)).checkOut();
     }
 
 }

@@ -40,7 +40,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldCheckOutBookAndSetBookCheckoutToFalse(){
+    public void shouldReturnCheckedOutBookAndSetBookCheckoutToFalse(){
         Book book = new Book("Name", "Author", 2016);
         library.checkOutBook(book);
         library.returnBook(book);
@@ -48,7 +48,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldIncreaseAvailableBookListSizeByOneWhenCheckingOutABook(){
+    public void shouldIncreaseAvailableBookListSizeByOneWhenReturningABook(){
         final int INCREASE_AMOUNT = 1;
         Book book1 = new Book("Name1", "Author1", 2016);
         Book book2 = new Book("Name2", "Author2", 2015);

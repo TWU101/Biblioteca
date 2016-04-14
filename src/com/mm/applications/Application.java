@@ -14,8 +14,9 @@ public class Application {
     Library library = new Library();
     private ArrayList mainMenu = new ArrayList();
     Printer printer = new Printer();
-    InputHandler inputHandler = new InputHandler(this);
     Scanner readUserInput = new Scanner(System.in);
+    InputHandler inputHandler = new InputHandler(this, printer);
+
 
     public void setUp(){
         library.addToLibrary(new Book("Java for Dummies", "John Smith", 2005));
@@ -39,28 +40,12 @@ public class Application {
     }
 
     public void checkOutBook(){
-        final int SELECTION_OFFSET = 1;
-        printer.printHeading("Select the Number Of The Book To Checkout", true);
-        printer.printEnumeratedList(getAvailableBookList());
-        int userInput = inputHandler.getUserInput(readUserInput);
-        if (userInput == -3) { return;}
-        int userSelectedBookToCheckOut = userInput - SELECTION_OFFSET;
-        Book selectedBook = library.getAvailableBookList().get(userSelectedBookToCheckOut);
-        library.checkOutBook(selectedBook);
-        printer.printSuccesfulCheckoutMessage();
+        inputHandler.performCheckoutBookOperation(library);
     }
 
 
     public void returnBook() {
-        final int SELECTION_OFFSET = 1;
-        printer.printHeading("Select the Number Of The Book To Return", true);
-        printer.printEnumeratedList(getCheckedOutBookList());
-        int userInput = inputHandler.getUserInput(readUserInput);
-        if (userInput == -3) { return;}
-        int userSelectedBookToReturn = userInput - SELECTION_OFFSET;
-        Book selectedBook = library.getCheckedOutBookList().get(userSelectedBookToReturn);
-        library.returnBook(selectedBook);
-        printer.printSuccessfullReturnMessage();
+        inputHandler.performReturnBookOperation(library);
     }
 
     public List<Book> getAvailableBookList() {

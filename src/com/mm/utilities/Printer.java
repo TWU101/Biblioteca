@@ -56,11 +56,23 @@ public class Printer {
     }
 
     public void printWelcome(){
-        printMessage("Welcome");
+        printMessage("Welcome!");
         printMessage("Type " + (char)27 + "[1mquit" + (char)27 + "[0m to exit the application at any point.");
     }
 
     public void printBackInstructions() {
         printMessage("Type " + (char)27 + "[1mback" + (char)27 + "[0m to return to the previous menu.");
+    }
+
+    public void printCantGoBack() {
+        printMessage("At highest level! Type" + (char)27 + "[1m quit" + (char)27 + "[0m to quit the application.");
+    }
+
+    public void printerEnterOnlyNumbers() {
+        printMessage("Please only input valid numbers, not letters.");
+    }
+
+    public void printEnterValidNumber() {
+        printMessage("That is not a valid option.");
     }
 }
