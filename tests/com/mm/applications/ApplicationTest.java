@@ -17,6 +17,6 @@ public class ApplicationTest {
 
     @Test
     public void shouldSetUpLibraryBooks() {
-        assertEquals(4, application.getLibrarySize());
+        assertEquals(4, application.getCompleteLibrary().size());
     }
 }

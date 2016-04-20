@@ -52,7 +52,7 @@ public class IOHandlerTest {
     @Test
     public void shouldPrintMessageToOnlyInputValidIntegers(){
         IOHandler.performSelectedMenuOption((MenuOption.INVALID_OPTION));
-        verify(printer, times(1)).printerEnterOnlyNumbers();
+        verify(printer, times(1)).printEnterOnlyNumbers();
     }
 
     @Test

@@ -38,7 +38,7 @@ public class IOHandler {
                 printer.printCantGoBack();
                 return continueAskingForUserInput;
             case MenuOption.INVALID_OPTION:
-                printer.printerEnterOnlyNumbers();
+                printer.printEnterOnlyNumbers();
                 return continueAskingForUserInput;
             case MenuOption.QUIT_OPTION:
                 printer.printMessage("BYE BYE");
@@ -76,7 +76,7 @@ public class IOHandler {
             return MenuOption.BACK_OPTION;
         }
         else if (userSelectedMenuOption == MenuOption.QUIT_OPTION) {
-            printer.printerEnterOnlyNumbers();
+            printer.printEnterOnlyNumbers();
             return MenuOption.QUIT_OPTION;
         }
         else{
@@ -98,7 +98,7 @@ public class IOHandler {
             return MenuOption.BACK_OPTION;
         }
         else if (userSelectedMenuOption == MenuOption.QUIT_OPTION) {
-            printer.printerEnterOnlyNumbers();
+            printer.printEnterOnlyNumbers();
             return MenuOption.QUIT_OPTION;
         }
         else if (userSelectedMenuOption > application.getCheckedOutBookList().size()) {

@@ -79,7 +79,7 @@ public class Printer {
         printMessage("At highest level! Type" + (char)27 + "[1m quit" + (char)27 + "[0m to quit the application.");
     }
 
-    public void printerEnterOnlyNumbers() {
+    public void printEnterOnlyNumbers() {
         printMessage("Please only input valid numbers, not letters.");
     }
 
