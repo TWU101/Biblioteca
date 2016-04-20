@@ -44,6 +44,14 @@ public class Printer {
         printSeparator();
     }
 
+    public void printMainMenu() {
+        printBlankLine();
+        printMessage("Main Menu");
+        printQuitInstructions();
+        printSeparator();
+    }
+
+
     public void printHeading(String message, boolean printBackInstructions) {
         printBlankLine();
         printMessage(message);
@@ -57,7 +65,10 @@ public class Printer {
 
     public void printWelcome(){
         printMessage("Welcome!");
-        printMessage("Type " + (char)27 + "[1mquit" + (char)27 + "[0m to exit the application at any point.");
+    }
+
+    public void printQuitInstructions() {
+        printMessage("Type " + (char)27 + "[1mquit" + (char)27 + "[0m to exit the application.2");
     }
 
     public void printBackInstructions() {

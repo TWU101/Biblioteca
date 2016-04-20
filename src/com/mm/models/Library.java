@@ -36,11 +36,11 @@ public class Library {
         return library;
     }
 
-    public void checkOutBook(Book book) {
-        book.checkOut();
+    public void checkOutBook(int index) {
+        this.getAvailableBookList().get(index).checkOutBook();
     }
 
-    public void returnBook(Book book) {
-        book.returnBook();
+    public void returnBook(int index) {
+        this.getCheckedOutBookList().get(index).returnBook();
     }
 }

@@ -26,7 +26,7 @@ public class Book{
         return yearPublished;
     }
 
-    public void checkOut() {
+    public void checkOutBook() {
         checkedOut = true;
     }
 

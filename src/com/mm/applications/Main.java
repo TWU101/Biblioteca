@@ -1,6 +1,6 @@
 package com.mm.applications;
 
-import com.mm.utilities.InputHandler;
+import com.mm.utilities.IOHandler;
 import com.mm.utilities.Printer;
 
 public class Main {
@@ -9,15 +9,15 @@ public class Main {
         boolean continueAskingForUserInput = true;
         Application application = new Application();
         Printer printer = new Printer();
-        InputHandler inputHandler = new InputHandler(application, printer);
+        IOHandler iOHandler = new IOHandler(application, printer);
 
         application.setUp();
         application.printWelcome();
 
         while (continueAskingForUserInput) {
             application.printMainMenu();
-            int userSelectedMenuOption = inputHandler.getUserInput();
-            continueAskingForUserInput = inputHandler.performSelectedMenuOption(userSelectedMenuOption);
+            int userSelectedMenuOption = iOHandler.getUserInput();
+            continueAskingForUserInput = iOHandler.performSelectedMenuOption(userSelectedMenuOption);
         }
 
     }

@@ -1,18 +1,16 @@
 package com.mm.utilities;
 
 import com.mm.applications.Application;
-import com.mm.models.Book;
-import com.mm.models.Library;
 
 import java.util.Scanner;
 
-public class InputHandler {
+public class IOHandler {
 
     private Application application;
     private Scanner scanner;
     private Printer printer;
 
-    public InputHandler(Application application, Printer printer) {
+    public IOHandler(Application application, Printer printer) {
         this.application = application;
         scanner = new Scanner(System.in);
         this.printer = printer;
@@ -24,25 +22,25 @@ public class InputHandler {
             return Integer.parseInt(userInputString);
         } catch (NumberFormatException e) {
             if (("q".equalsIgnoreCase(userInputString)) || ("quit").equalsIgnoreCase(userInputString)){
-                return 0;
+                return MenuOption.QUIT_OPTION;
             }
             if (("b".equalsIgnoreCase(userInputString)) || ("back").equalsIgnoreCase(userInputString)){
-                return -2;
+                return MenuOption.BACK_OPTION;
             }
-            return -1;
+            return MenuOption.INVALID_OPTION;
         }
     }
 
     public boolean performSelectedMenuOption(int userSelectedMenuOption) {
         boolean continueAskingForUserInput = true;
         switch (userSelectedMenuOption) {
-            case -2:
+            case MenuOption.BACK_OPTION:
                 printer.printCantGoBack();
                 return continueAskingForUserInput;
-            case -1:
+            case MenuOption.INVALID_OPTION:
                 printer.printerEnterOnlyNumbers();
                 return continueAskingForUserInput;
-            case 0:
+            case MenuOption.QUIT_OPTION:
                 printer.printMessage("BYE BYE");
                 continueAskingForUserInput = false;
                 return continueAskingForUserInput;
@@ -56,58 +54,59 @@ public class InputHandler {
                application.returnBook();
                 return continueAskingForUserInput;
             default:
-                printer.printMessage("Sorry, that is not a valid option :(");
+                printer.printEnterValidNumber();
                 return continueAskingForUserInput;
         }
     }
 
-    public void performCheckoutBookOperation(Library library){
-        final int SELECTION_OFFSET = 1;
+    public int getBookToCheckOut(){
+        final int SELECTION_OFFSET = 0;
         final boolean INCLUDE_BACK_INSTRUCTIONS = true;
 
         printer.printHeading("Select the Number Of The Book To Checkout", INCLUDE_BACK_INSTRUCTIONS);
         printer.printEnumeratedList(application.getAvailableBookList());
+
+        if (application.getAvailableBookList().size() ==0) {
+            return MenuOption.BACK_OPTION;
+        }
         int userSelectedMenuOption = getUserInput();
         int userSelectedBookToCheckout = userSelectedMenuOption - SELECTION_OFFSET;
 
-        if (userSelectedMenuOption == -2) {
-            return;
+        if (userSelectedMenuOption == MenuOption.BACK_OPTION) {
+            return MenuOption.BACK_OPTION;
         }
-        else if (userSelectedMenuOption == -1) {
+        else if (userSelectedMenuOption == MenuOption.QUIT_OPTION) {
             printer.printerEnterOnlyNumbers();
-        }
-        else if (userSelectedMenuOption > application.getAvailableBookList().size()) {
-            printer.printEnterValidNumber();
+            return MenuOption.QUIT_OPTION;
         }
         else{
-            Book selectedBook = library.getAvailableBookList().get(userSelectedBookToCheckout);
-            library.checkOutBook(selectedBook);
-            printer.printSuccesfulCheckoutMessage();
+           return userSelectedBookToCheckout;
         }
     }
 
-    public void performReturnBookOperation(Library library) {
-        final int SELECTION_OFFSET = 1;
+    public int getBookToReturn() {
+        final int SELECTION_OFFSET = 0;
         final boolean INCLUDE_BACK_INSTRUCTIONS = true;
 
         printer.printHeading("Select the Number Of The Book To Return", INCLUDE_BACK_INSTRUCTIONS);
         printer.printEnumeratedList(application.getCheckedOutBookList());
-        int userSelectedMenuOption = getUserInput();
-        int userSelectedBookToCheckout = userSelectedMenuOption - SELECTION_OFFSET;
 
-        if (userSelectedMenuOption == -2) {
-            return;
+        int userSelectedMenuOption = getUserInput();
+        int userSelectedBookToReturn = userSelectedMenuOption - SELECTION_OFFSET;
+
+        if (userSelectedMenuOption == MenuOption.BACK_OPTION) {
+            return MenuOption.BACK_OPTION;
         }
-        else if (userSelectedMenuOption == -1) {
+        else if (userSelectedMenuOption == MenuOption.QUIT_OPTION) {
             printer.printerEnterOnlyNumbers();
+            return MenuOption.QUIT_OPTION;
         }
         else if (userSelectedMenuOption > application.getCheckedOutBookList().size()) {
             printer.printEnterValidNumber();
+            return -1;
         }
         else{
-            Book selectedBook = library.getCheckedOutBookList().get(userSelectedBookToCheckout);
-            library.returnBook(selectedBook);
-            printer.printSuccessfullReturnMessage();
+            return userSelectedBookToReturn;
         }
     }
 }

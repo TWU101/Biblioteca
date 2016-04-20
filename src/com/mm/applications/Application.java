@@ -1,9 +1,10 @@
 package com.mm.applications;
 
-import com.mm.utilities.InputHandler;
-import com.mm.utilities.Printer;
 import com.mm.models.Book;
 import com.mm.models.Library;
+import com.mm.utilities.IOHandler;
+import com.mm.utilities.MenuOption;
+import com.mm.utilities.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,12 @@ import java.util.Scanner;
 
 
 public class Application {
-    Library library = new Library();
+    private Library library = new Library();
     private ArrayList mainMenu = new ArrayList();
-    Printer printer = new Printer();
-    Scanner readUserInput = new Scanner(System.in);
-    InputHandler inputHandler = new InputHandler(this, printer);
+    private Printer printer = new Printer();
+    private Scanner readUserInput = new Scanner(System.in);
+    private IOHandler iOHandler = new IOHandler(this, printer);
+    private final static int INDEX_OFFSET = 1;
 
 
     public void setUp(){
@@ -34,18 +36,53 @@ public class Application {
     }
 
 
-    public void printMainMenu(){
-        printer.printHeading("Main Menu");
+    public void printMainMenu() {
+        printer.printMainMenu();
         printer.printEnumeratedList(mainMenu);
     }
 
-    public void checkOutBook(){
-        inputHandler.performCheckoutBookOperation(library);
+    public boolean checkOutBook() {
+        int maxSize = getAvailableBookList().size();
+        int selectedOption = iOHandler.getBookToCheckOut();
+
+        if (selectedOption == MenuOption.BACK_OPTION) {
+            return true;
+        } else if (selectedOption == MenuOption.QUIT_OPTION) {
+            return false;
+        } else if (selectedOption == MenuOption.INVALID_OPTION){
+            printer.printerEnterOnlyNumbers();
+            return true;
+        } else if (selectedOption > maxSize) {
+            printer.printEnterValidNumber();
+            return true;
+        }
+
+
+        int bookIndexToCheckOut = selectedOption - INDEX_OFFSET;
+        library.checkOutBook(bookIndexToCheckOut);
+        return true;
     }
 
 
-    public void returnBook() {
-        inputHandler.performReturnBookOperation(library);
+    public boolean returnBook() {
+        int maxSize = getCheckedOutBookList().size();
+        int selectedOption = iOHandler.getBookToReturn();
+
+        if (selectedOption == MenuOption.BACK_OPTION) {
+            return true;
+        } else if (selectedOption == MenuOption.QUIT_OPTION) {
+            return false;
+        } else if (selectedOption == MenuOption.INVALID_OPTION){
+            printer.printerEnterOnlyNumbers();
+            return true;
+        } else if (selectedOption > maxSize) {
+            printer.printEnterValidNumber();
+            return true;
+        }
+
+        int bookIndexToReturn = selectedOption - INDEX_OFFSET;
+        library.returnBook(bookIndexToReturn);
+        return true;
     }
 
     public List<Book> getAvailableBookList() {

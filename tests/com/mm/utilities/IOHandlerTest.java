@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
 
-public class InputHandlerTest {
+public class IOHandlerTest {
     private Application application;
-    private InputHandler inputHandler;
+    private IOHandler IOHandler;
     private Printer printer;
 
     @Before
@@ -21,7 +21,7 @@ public class InputHandlerTest {
         application = mock(Application.class);
         System.setIn(new ByteArrayInputStream("".getBytes()));
         printer = mock(Printer.class);
-        inputHandler = new InputHandler(application, printer);
+        IOHandler = new IOHandler(application, printer);
     }
 
 
@@ -30,8 +30,8 @@ public class InputHandlerTest {
         String input = "2";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-        inputHandler= new InputHandler(application, printer);
-        assertEquals(2, inputHandler.getUserInput());
+        IOHandler = new IOHandler(application, printer);
+        assertEquals(2, IOHandler.getUserInput());
     }
 
     @Test
@@ -39,42 +39,42 @@ public class InputHandlerTest {
         String input = "a%#";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-        inputHandler= new InputHandler(application, printer);
-        assertEquals(-1, inputHandler.getUserInput());
+        IOHandler = new IOHandler(application, printer);
+        assertEquals(MenuOption.INVALID_OPTION, IOHandler.getUserInput());
     }
 
     @Test
     public void shouldCallMethodToPrintNoMoreBackMessage(){
-        inputHandler.performSelectedMenuOption((-2));
+        IOHandler.performSelectedMenuOption((MenuOption.BACK_OPTION));
         verify(printer, times(1)).printCantGoBack();
     }
 
     @Test
     public void shouldPrintMessageToOnlyInputValidIntegers(){
-        inputHandler.performSelectedMenuOption((-1));
+        IOHandler.performSelectedMenuOption((MenuOption.INVALID_OPTION));
         verify(printer, times(1)).printerEnterOnlyNumbers();
     }
 
     @Test
     public void shouldReturnFalseWhenUserInputsQuitCommand(){
-        assertFalse(inputHandler.performSelectedMenuOption((0)));
+        assertFalse(IOHandler.performSelectedMenuOption((0)));
     }
 
     @Test
     public void shouldCallMethodToPrintCompleteLibrary(){
-        inputHandler.performSelectedMenuOption(1);
+        IOHandler.performSelectedMenuOption(1);
         verify(application, times(1)).printCompleteLibrary();
     }
 
     @Test
     public void shouldCallMethodToCheckOutBook(){
-        inputHandler.performSelectedMenuOption(2);
+        IOHandler.performSelectedMenuOption(2);
         verify(application, times(1)).checkOutBook();
     }
 
     @Test
     public void shouldCallMethodToReturnBook(){
-        inputHandler.performSelectedMenuOption(3);
+        IOHandler.performSelectedMenuOption(3);
         verify(application, times(1)).returnBook();
     }
 
