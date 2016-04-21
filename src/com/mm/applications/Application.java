@@ -77,7 +77,7 @@ public class Application {
     }
 
     public boolean checkOutBook() {
-        int selectedOption = ioHandler.retreiveBookOption("Checkout", getAvailableBookList());
+        int selectedOption = ioHandler.retrieveBookOption("Checkout", getAvailableBookList());
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             return true;
@@ -96,7 +96,7 @@ public class Application {
     }
 
     public boolean returnBook() {
-        int selectedOption = ioHandler.retreiveBookOption("Return", getCheckedOutBookList());
+        int selectedOption = ioHandler.retrieveBookOption("Return", getCheckedOutBookList());
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             return true;
