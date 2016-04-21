@@ -68,7 +68,7 @@ public class Printer {
     }
 
     public void printQuitInstructions() {
-        printMessage("Type " + (char)27 + "[1mquit" + (char)27 + "[0m to exit the application.2");
+        printMessage("Type " + (char)27 + "[1mquit" + (char)27 + "[0m to exit the application.");
     }
 
     public void printBackInstructions() {
@@ -85,5 +85,9 @@ public class Printer {
 
     public void printEnterValidNumber() {
         printMessage("That is not a valid option.");
+    }
+
+    public void printEmptyList() {
+        printMessage("Nothing here!");
     }
 }

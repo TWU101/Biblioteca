@@ -11,12 +11,18 @@ import java.util.List;
 
 
 public class Application {
-    private Library library = new Library();
-    private ArrayList mainMenu = new ArrayList();
-    private Printer printer = new Printer();
-    private IOHandler ioHandler = new IOHandler(this, printer);
+    private Library library;
+    private ArrayList mainMenu;
+    private Printer printer;
+    private IOHandler ioHandler;
     private final static int INDEX_OFFSET = 1;
 
+    public Application() {
+        this.library = new Library();
+        this.mainMenu = new ArrayList();
+        this.printer = new Printer();
+        this.ioHandler = new IOHandler(printer);
+    }
 
     public void setUp(){
         library.addToLibrary(new Book("Java for Dummies", "John Smith", 2005));
@@ -30,64 +36,81 @@ public class Application {
     }
 
     public void execute() {
-        boolean continueAskingForUserInput = true;
-        while (continueAskingForUserInput) {
-            printMainMenu();
-            int userSelectedMenuOption = ioHandler.getUserInput();
-            continueAskingForUserInput = ioHandler.performSelectedMenuOption(userSelectedMenuOption);
-        }
-
+        setUp();
+        printWelcome();
+        loopMainMenu();
     }
 
     public void printWelcome() {
         printer.printWelcome();
     }
 
-    public void printMainMenu() {
-        printer.printMainMenu();
-        printer.printEnumeratedList(mainMenu);
+    public void loopMainMenu() {
+        int userSelectedMenuOption = ioHandler.retrieveMainMenuOption(mainMenu);
+        boolean continueLooping = true;
+
+        switch (userSelectedMenuOption) {
+            case MenuOption.BACK_OPTION:
+                printer.printCantGoBack();
+                break;
+            case MenuOption.INVALID_OPTION:
+                printer.printEnterOnlyNumbers();
+                break;
+            case MenuOption.QUIT_OPTION:
+                printer.printMessage("BYE BYE");
+                return;
+            case 1:
+                printCompleteLibrary();
+                break;
+            case 2:
+                continueLooping = checkOutBook();
+                break;
+            case 3:
+                continueLooping = returnBook();
+                break;
+            default:
+                printer.printEnterValidNumber();
+                break;
+        }
+        if (!continueLooping) return;
+        loopMainMenu();
     }
 
     public boolean checkOutBook() {
-        int maxSize = getAvailableBookList().size();
-        int selectedOption = ioHandler.getBookToCheckOut();
+        int selectedOption = ioHandler.retreiveBookOption("Checkout", getAvailableBookList());
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             return true;
         } else if (selectedOption == MenuOption.QUIT_OPTION) {
+            printer.printMessage("BYEBYE");
             return false;
         } else if (selectedOption == MenuOption.INVALID_OPTION){
             printer.printEnterOnlyNumbers();
             return true;
-        } else if (selectedOption > maxSize) {
-            printer.printEnterValidNumber();
-            return true;
         }
-
 
         int bookIndexToCheckOut = selectedOption - INDEX_OFFSET;
         library.checkOutBook(bookIndexToCheckOut);
+        printer.printSuccesfulCheckoutMessage();
         return true;
     }
 
     public boolean returnBook() {
-        int maxSize = getCheckedOutBookList().size();
-        int selectedOption = ioHandler.getBookToReturn();
+        int selectedOption = ioHandler.retreiveBookOption("Return", getCheckedOutBookList());
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             return true;
         } else if (selectedOption == MenuOption.QUIT_OPTION) {
+            printer.printMessage("BYEBYE");
             return false;
         } else if (selectedOption == MenuOption.INVALID_OPTION){
             printer.printEnterOnlyNumbers();
-            return true;
-        } else if (selectedOption > maxSize) {
-            printer.printEnterValidNumber();
             return true;
         }
 
         int bookIndexToReturn = selectedOption - INDEX_OFFSET;
         library.returnBook(bookIndexToReturn);
+        printer.printSuccessfullReturnMessage();
         return true;
     }
 
