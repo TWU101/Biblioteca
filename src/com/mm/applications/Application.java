@@ -1,7 +1,9 @@
 package com.mm.applications;
 
 import com.mm.models.Book;
+import com.mm.models.Checkoutable;
 import com.mm.models.Library;
+import com.mm.models.Movie;
 import com.mm.utilities.IOHandler;
 import com.mm.utilities.MenuOption;
 import com.mm.utilities.Printer;
@@ -11,28 +13,37 @@ import java.util.List;
 
 
 public class Application {
-    private Library library;
+    private Library bookLibrary;
+    private Library movieLibrary;
     private ArrayList mainMenu;
     private Printer printer;
     private IOHandler ioHandler;
     private final static int INDEX_OFFSET = 1;
 
     public Application() {
-        this.library = new Library();
+        this.bookLibrary = new Library();
+        this.movieLibrary = new Library();
         this.mainMenu = new ArrayList();
         this.printer = new Printer();
         this.ioHandler = new IOHandler(printer);
     }
 
     public void setUp(){
-        library.addToLibrary(new Book("Java for Dummies", "John Smith", 2005));
-        library.addToLibrary(new Book("Agile Samurai", "Abe Lincoln", 1995));
-        library.addToLibrary(new Book("TDD By Example", "Kent Beck", 2007));
-        library.addToLibrary(new Book("Harry Potter", "JK Rowling", 2005));
+        bookLibrary.addToLibrary(new Book("Java for Dummies", "John Smith", 2005));
+        bookLibrary.addToLibrary(new Book("Agile Samurai", "Abe Lincoln", 1995));
+        bookLibrary.addToLibrary(new Book("TDD By Example", "Kent Beck", 2007));
+        bookLibrary.addToLibrary(new Book("Harry Potter", "JK Rowling", 2005));
 
-        mainMenu.add("List All Books");
+        movieLibrary.addToLibrary(new Movie("Die Hard", 1988, "John McTiernan", "8"));
+        movieLibrary.addToLibrary(new Movie("Deadpool", 2016, "Tim Miller", "9"));
+        movieLibrary.addToLibrary(new Movie("Guardians of the Galaxy", 2014, "James Gunn", "7"));
+        movieLibrary.addToLibrary(new Movie("Up", 2009, "Pete Docter", "9"));
+
+        mainMenu.add("List All Books and Movies");
         mainMenu.add("Checkout Book");
         mainMenu.add("Return Book");
+        mainMenu.add("Checkout Movie");
+        mainMenu.add("Return Movie");
     }
 
     public void execute() {
@@ -63,10 +74,16 @@ public class Application {
                 printCompleteLibrary();
                 break;
             case 2:
-                continueLooping = checkOutBook();
+                continueLooping = checkOutItem(bookLibrary);
                 break;
             case 3:
-                continueLooping = returnBook();
+                continueLooping = returnItem(bookLibrary);
+                break;
+            case 4:
+                continueLooping = checkOutItem(movieLibrary);
+                break;
+            case 5:
+                continueLooping = returnItem(movieLibrary);
                 break;
             default:
                 printer.printEnterValidNumber();
@@ -76,57 +93,55 @@ public class Application {
         loopMainMenu();
     }
 
-    public boolean checkOutBook() {
-        int selectedOption = ioHandler.retrieveBookOption("Checkout", getAvailableBookList());
+    public boolean checkOutItem(Library library) {
+        int selectedOption = ioHandler.retrieveSelectedItemFromList("Checkout", library.getAvailableItemList());
 
         if (selectedOption == MenuOption.BACK_OPTION) {
+            System.out.println(selectedOption);
             return true;
         } else if (selectedOption == MenuOption.QUIT_OPTION) {
             printer.printMessage("BYEBYE");
             return false;
-        } else if (selectedOption == MenuOption.INVALID_OPTION){
-            printer.printEnterOnlyNumbers();
-            return true;
         }
 
-        int bookIndexToCheckOut = selectedOption - INDEX_OFFSET;
-        library.checkOutBook(bookIndexToCheckOut);
+        int itemIndexToCheckout = selectedOption - INDEX_OFFSET;
+        library.checkOutItem(itemIndexToCheckout);
         printer.printSuccesfulCheckoutMessage();
         return true;
     }
 
-    public boolean returnBook() {
-        int selectedOption = ioHandler.retrieveBookOption("Return", getCheckedOutBookList());
+    public boolean returnItem(Library library) {
+        int selectedOption = ioHandler.retrieveSelectedItemFromList("Return", library.getCheckedOutItemList());
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             return true;
         } else if (selectedOption == MenuOption.QUIT_OPTION) {
             printer.printMessage("BYEBYE");
             return false;
-        } else if (selectedOption == MenuOption.INVALID_OPTION){
-            printer.printEnterOnlyNumbers();
-            return true;
         }
 
         int bookIndexToReturn = selectedOption - INDEX_OFFSET;
-        library.returnBook(bookIndexToReturn);
+        bookLibrary.returnItem(bookIndexToReturn);
         printer.printSuccessfullReturnMessage();
         return true;
     }
 
-    public List<Book> getAvailableBookList() {
-        return library.getAvailableBookList();
+    public List<Checkoutable> getAvailableItemList() {
+        return bookLibrary.getAvailableItemList();
     }
 
-    public List<Book> getCompleteLibrary() {
+    public List<Checkoutable> getCompleteLibrary(Library library) {
         return library.getCompleteLibrary();
     }
 
     public void printCompleteLibrary() {
-        printer.printList(getCompleteLibrary());
+        printer.printHeading("Books");
+        printer.printList(getCompleteLibrary(bookLibrary));
+        printer.printHeading("Movies");
+        printer.printList(getCompleteLibrary(movieLibrary));
     }
 
-    public List getCheckedOutBookList() {
-        return library.getCheckedOutBookList();
-    }
+//    public List getCheckedOutItemList() {
+//        return bookLibrary.getCheckedOutItemList();
+//    }
 }

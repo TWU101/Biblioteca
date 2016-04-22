@@ -68,13 +68,13 @@ public class IOHandlerTest {
 //    @Test
 //    public void shouldCallMethodToCheckOutBook(){
 //        IOHandler.performSelectedMenuOption(2);
-//        verify(application, times(1)).checkOutBook();
+//        verify(application, times(1)).checkOutItem();
 //    }
 //
 //    @Test
 //    public void shouldCallMethodToReturnBook(){
 //        IOHandler.performSelectedMenuOption(3);
-//        verify(application, times(1)).returnBook();
+//        verify(application, times(1)).returnItem();
 //    }
 
 

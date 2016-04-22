@@ -25,9 +25,9 @@ public class LibraryTest {
         library.addToLibrary(book1);
         library.addToLibrary(book2);
 
-        int sizeBeforeCheckout = library.getAvailableBookList().size();
-        library.checkOutBook(0);
-        assertEquals(sizeBeforeCheckout-REDUCED_AMOUNT, library.getAvailableBookList().size());
+        int sizeBeforeCheckout = library.getAvailableItemList().size();
+        library.checkOutItem(0);
+        assertEquals(sizeBeforeCheckout-REDUCED_AMOUNT, library.getAvailableItemList().size());
     }
 
 
@@ -40,10 +40,10 @@ public class LibraryTest {
         library.addToLibrary(book1);
         library.addToLibrary(book2);
 
-        library.checkOutBook(0);
-        int sizeBeforeReturn = library.getAvailableBookList().size();
-        library.returnBook(0);
-        assertEquals(sizeBeforeReturn+INCREASE_AMOUNT, library.getAvailableBookList().size());
+        library.checkOutItem(0);
+        int sizeBeforeReturn = library.getAvailableItemList().size();
+        library.returnItem(0);
+        assertEquals(sizeBeforeReturn+INCREASE_AMOUNT, library.getAvailableItemList().size());
     }
 
 }

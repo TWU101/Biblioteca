@@ -1,6 +1,6 @@
 package com.mm.models;
 
-public class Movie {
+public class Movie implements Checkoutable {
     private String name;
     private int year;
     private String director;

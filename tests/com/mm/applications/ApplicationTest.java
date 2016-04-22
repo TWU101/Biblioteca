@@ -1,9 +1,6 @@
 package com.mm.applications;
 
 import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class ApplicationTest {
 
@@ -15,8 +12,8 @@ public class ApplicationTest {
         application.setUp();
     }
 
-    @Test
-    public void shouldSetUpLibraryBooks() {
-        assertEquals(4, application.getCompleteLibrary().size());
-    }
+//    @Test
+//    public void shouldSetUpLibraryBooks() {
+//        assertEquals(4, application.getCompleteLibrary().size());
+//    }
 }

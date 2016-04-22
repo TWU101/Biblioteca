@@ -9,6 +9,6 @@ public class BookTest {
     @Test
     public void shouldCreateBookThatIsNotCheckedOutByDefault(){
         Book book = new Book("Name", "Author", 2016);
-        assertFalse(book.checkedOut);
+        assertFalse(book.isCheckedOut());
     }
 }
