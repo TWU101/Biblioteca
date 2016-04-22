@@ -74,16 +74,16 @@ public class Application {
                 printCompleteLibrary();
                 break;
             case 2:
-                continueLooping = checkOutItem(bookLibrary);
+                continueLooping = checkOutItem(bookLibrary, "Book");
                 break;
             case 3:
-                continueLooping = returnItem(bookLibrary);
+                continueLooping = returnItem(bookLibrary, "Book");
                 break;
             case 4:
-                continueLooping = checkOutItem(movieLibrary);
+                continueLooping = checkOutItem(movieLibrary, "Movie");
                 break;
             case 5:
-                continueLooping = returnItem(movieLibrary);
+                continueLooping = returnItem(movieLibrary, "Movie");
                 break;
             default:
                 printer.printEnterValidNumber();
@@ -93,8 +93,8 @@ public class Application {
         loopMainMenu();
     }
 
-    public boolean checkOutItem(Library library) {
-        int selectedOption = ioHandler.retrieveSelectedItemFromList("Checkout", library.getAvailableItemList());
+    public boolean checkOutItem(Library library, String itemType) {
+        int selectedOption = ioHandler.retrieveSelectedItemFromList("Checkout", library.getAvailableItemList(), itemType);
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             System.out.println(selectedOption);
@@ -110,8 +110,8 @@ public class Application {
         return true;
     }
 
-    public boolean returnItem(Library library) {
-        int selectedOption = ioHandler.retrieveSelectedItemFromList("Return", library.getCheckedOutItemList());
+    public boolean returnItem(Library library, String itemType) {
+        int selectedOption = ioHandler.retrieveSelectedItemFromList("Return", library.getCheckedOutItemList(), itemType);
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             return true;

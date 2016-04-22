@@ -36,10 +36,10 @@ public class IOHandler {
         return getUserInput();
     }
 
-    public int retrieveSelectedItemFromList(String checkoutOrReturn, List bookList) {
+    public int retrieveSelectedItemFromList(String checkoutOrReturn, List bookList, String itemType) {
         final boolean INCLUDE_BACK_INSTRUCTIONS = true;
         final int LIST_IS_EMPTY = 0;
-        printer.printHeading("Select the Number Of The Book To " + checkoutOrReturn, INCLUDE_BACK_INSTRUCTIONS);
+        printer.printHeading("Select the Number Of The " + itemType + " To " + checkoutOrReturn, INCLUDE_BACK_INSTRUCTIONS);
         printer.printEnumeratedList(bookList);
         int maxSize = bookList.size();
 
@@ -51,7 +51,7 @@ public class IOHandler {
 
         if ((userSelectedOption > maxSize) || (userSelectedOption == MenuOption.INVALID_OPTION)){
             printer.printEnterValidNumber();
-            userSelectedOption = retrieveSelectedItemFromList(checkoutOrReturn, bookList);
+            userSelectedOption = retrieveSelectedItemFromList(checkoutOrReturn, bookList, itemType);
         }
 
         return userSelectedOption;
