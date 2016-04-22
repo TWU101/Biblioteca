@@ -126,10 +126,6 @@ public class Application {
         return true;
     }
 
-    public List<Checkoutable> getAvailableItemList() {
-        return bookLibrary.getAvailableItemList();
-    }
-
     public List<Checkoutable> getCompleteLibrary(Library library) {
         return library.getCompleteLibrary();
     }
@@ -141,7 +137,4 @@ public class Application {
         printer.printList(getCompleteLibrary(movieLibrary));
     }
 
-//    public List getCheckedOutItemList() {
-//        return bookLibrary.getCheckedOutItemList();
-//    }
 }
