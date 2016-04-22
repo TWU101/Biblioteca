@@ -1,11 +1,11 @@
 package com.mm.models;
 
-public class Book{
+public class Book implements Checkoutable{
 
     private String title;
     private String author;
     private int yearPublished;
-    boolean checkedOut;
+    private boolean checkedOut;
 
     public Book(String bookTitle, String bookAuthor, int bookYearPublished){
         title = bookTitle;
@@ -26,7 +26,7 @@ public class Book{
         return yearPublished;
     }
 
-    public void checkOutBook() {
+    public void checkOutItem() {
         checkedOut = true;
     }
 
@@ -36,7 +36,11 @@ public class Book{
     }
 
 
-    public void returnBook() {
+    public void returnItem() {
         checkedOut = false;
+    }
+
+    public boolean isCheckedOut(){
+        return checkedOut;
     }
 }

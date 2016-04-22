@@ -20,11 +20,15 @@ public class Movie {
         return name + " | " + year + " | " + director + " | " + rating;
     }
 
-    public void checkOutMovie(){
+    public void checkOutItem(){
         checkedOut = true;
     }
 
-    public void returnMovie(){
+    public void returnItem(){
         checkedOut = false;
+    }
+
+    public boolean isCheckedOut(){
+        return checkedOut;
     }
 }
