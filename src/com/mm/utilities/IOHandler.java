@@ -15,7 +15,12 @@ public class IOHandler {
 
     public int getUserInput() {
         String userInputString = scanner.next();
-
+        if (("login").equalsIgnoreCase(userInputString)){
+            return MenuOption.LOGIN_OPTION;
+        }
+        if (("logout").equalsIgnoreCase(userInputString)){
+            return MenuOption.LOGOUT_OPTION;
+        }
         if (("q".equalsIgnoreCase(userInputString)) || ("quit").equalsIgnoreCase(userInputString)){
             return MenuOption.QUIT_OPTION;
         }
@@ -56,5 +61,10 @@ public class IOHandler {
 
         return userSelectedOption;
 
+    }
+
+    public String getString(String message) {
+        printer.printMessage(message);
+        return scanner.next();
     }
 }

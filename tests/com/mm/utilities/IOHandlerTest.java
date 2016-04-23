@@ -34,7 +34,7 @@ public class IOHandlerTest {
     }
 
     @Test
-    public void shouldReturnNegativeOneWhenInputIsNotANumber() {
+    public void shouldReturnInvalidOptionWhenInputIsNotANumber() {
         String input = "a%#";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
@@ -42,40 +42,25 @@ public class IOHandlerTest {
         assertEquals(MenuOption.INVALID_OPTION, IOHandler.getUserInput());
     }
 
-//    @Test
-//    public void shouldCallMethodToPrintNoMoreBackMessage(){
-//        IOHandler.performSelectedMenuOption((MenuOption.BACK_OPTION));
-//        verify(printer, times(1)).printCantGoBack();
-//    }
-//
-//    @Test
-//    public void shouldPrintMessageToOnlyInputValidIntegers(){
-//        IOHandler.performSelectedMenuOption((MenuOption.INVALID_OPTION));
-//        verify(printer, times(1)).printEnterOnlyNumbers();
-//    }
-//
-//    @Test
-//    public void shouldReturnFalseWhenUserInputsQuitCommand(){
-//        assertFalse(IOHandler.performSelectedMenuOption((0)));
-//    }
-//
-//    @Test
-//    public void shouldCallMethodToPrintCompleteLibrary(){
-//        IOHandler.performSelectedMenuOption(1);
-//        verify(application, times(1)).printCompleteLibrary();
-//    }
-//
-//    @Test
-//    public void shouldCallMethodToCheckOutBook(){
-//        IOHandler.performSelectedMenuOption(2);
-//        verify(application, times(1)).checkOutItem();
-//    }
-//
-//    @Test
-//    public void shouldCallMethodToReturnBook(){
-//        IOHandler.performSelectedMenuOption(3);
-//        verify(application, times(1)).returnItem();
-//    }
+    @Test
+    public void shouldReturnBackOptionWhenInputIsBorBack() {
+        String input = "back";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        IOHandler = new IOHandler(printer);
+        assertEquals(MenuOption.BACK_OPTION, IOHandler.getUserInput());
+    }
+
+    @Test
+    public void shouldReturnQuitOptionWhenInputIsQorQuit() {
+        String input = "quit";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        IOHandler = new IOHandler(printer);
+        assertEquals(MenuOption.QUIT_OPTION, IOHandler.getUserInput());
+    }
+
+
 
 
 

@@ -1,9 +1,6 @@
 package com.mm.applications;
 
-import com.mm.models.Book;
-import com.mm.models.Checkoutable;
-import com.mm.models.Library;
-import com.mm.models.Movie;
+import com.mm.models.*;
 import com.mm.utilities.IOHandler;
 import com.mm.utilities.MenuOption;
 import com.mm.utilities.Printer;
@@ -15,6 +12,8 @@ import java.util.List;
 public class Application {
     private Library bookLibrary;
     private Library movieLibrary;
+    private User currentUser;
+    private ArrayList <User> userList;
     private ArrayList mainMenu;
     private Printer printer;
     private IOHandler ioHandler;
@@ -26,6 +25,8 @@ public class Application {
         this.mainMenu = new ArrayList();
         this.printer = new Printer();
         this.ioHandler = new IOHandler(printer);
+        userList = new ArrayList<>();
+        this.currentUser = null;
     }
 
     public void setUp(){
@@ -38,6 +39,11 @@ public class Application {
         movieLibrary.addToLibrary(new Movie("Deadpool", 2016, "Tim Miller", "9"));
         movieLibrary.addToLibrary(new Movie("Guardians of the Galaxy", 2014, "James Gunn", "7"));
         movieLibrary.addToLibrary(new Movie("Up", 2009, "Pete Docter", "9"));
+
+        userList.add(new User("123-4567", "password"));
+        userList.add(new User("000-1111", "zeroone"));
+        userList.add(new User("987-6543", "ninesix"));
+        userList.add(new User("111-2222", "onetwo"));
 
         mainMenu.add("List All Books and Movies");
         mainMenu.add("Checkout Book");
@@ -61,6 +67,12 @@ public class Application {
         boolean continueLooping = true;
 
         switch (userSelectedMenuOption) {
+            case MenuOption.LOGIN_OPTION:
+                login();
+                break;
+            case MenuOption.LOGOUT_OPTION:
+                logout();
+                break;
             case MenuOption.BACK_OPTION:
                 printer.printCantGoBack();
                 break;
@@ -91,6 +103,34 @@ public class Application {
         }
         if (!continueLooping) return;
         loopMainMenu();
+    }
+
+    private void login() {
+        if (currentUser != null) {
+            printer.printMessage("Someone is already logged in!");
+            return;
+        }
+
+        String inputUsername = ioHandler.getString("Please enter your username");
+        String inputPassword = ioHandler.getString("Please enter your password");
+        User userToCompareAgainst = new User(inputUsername, inputPassword);
+
+        int currentUserIndex = userList.indexOf(userToCompareAgainst);
+        if (currentUserIndex != -1) {
+            currentUser = userList.get(currentUserIndex);
+        }
+        printer.printLoggedInInstructions(currentUser.id);
+
+    }
+
+    private void logout() {
+        if (currentUser != null) {
+            String currentID = currentUser.getID();
+            currentUser = null;
+            printer.printLoggedOut(currentID);
+        } else {
+            printer.printMessage("No one is currently logged in.");
+        }
     }
 
     public boolean checkOutItem(Library library, String itemType) {

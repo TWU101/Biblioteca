@@ -2,8 +2,8 @@ package com.mm.models;
 
 public class User {
 
-    private final String id;
-    private final String password;
+    public String id;
+    public String password;
 
     public User(String id, String password) {
 
@@ -19,7 +19,21 @@ public class User {
         return password;
     }
 
-    public boolean verifyCredentials(String id, String password) {
-        return ((this.id == id) && (this.password == password));
+
+
+//    public boolean verifyCredentials(Object user) {
+//        return ((this.id ==  user.id) && (this.password == user.password));
+//    }
+
+    @Override
+    public boolean equals(Object user) {
+        if(user instanceof User){
+            User toCompare = (User) user;
+            return ((this.id.equals(toCompare.id)) && (this.password.equals(toCompare.password)));
+        }
+        return false;
     }
+
+
 }
+
