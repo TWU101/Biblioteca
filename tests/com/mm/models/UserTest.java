@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class UserTest {
 
@@ -24,26 +25,31 @@ public class UserTest {
         assertEquals(password, user.getPassword());
     }
 
-//    @Test
-//    public void shouldReturnTrueIfSuppliedCredentialsMatchUserData(){
-//        boolean userExists = user.verifyCredentials(id, password);
-//
-//        assertTrue(userExists);
-//    }
-//
-//    @Test
-//    public void shouldReturnFalseIfSuppliedIDDoesNotMatchUserID(){
-//        String wrongID = "999-8765";
-//        boolean userExists = user.verifyCredentials(wrongID, password);
-//
-//        assertFalse(userExists);
-//    }
-//
-//    @Test
-//    public void shouldReturnFalseIfSuppliedPasswordDoesNotMatchUserPassword(){
-//        String wrongPassword = "wrongPassword";
-//        boolean userExists = user.verifyCredentials(id, wrongPassword);
-//
-//        assertFalse(userExists);
-//    }
+    @Test
+    public void shouldReturnTrueIfSuppliedCredentialsMatchUserData(){
+        String correctID = "123-4567";
+        String correctPassword = "password";
+
+        User user2 = new User(correctID, correctPassword);
+        assertEquals(user, user2);
+
+    }
+
+    @Test
+    public void shouldReturnFalseIfSuppliedIDDoesNotMatchUserID(){
+        String wrongID = "000-0000";
+        String correctPassword = "password";
+
+        User user2 = new User(wrongID, correctPassword);
+        assertNotEquals(user, user2);
+    }
+
+    @Test
+    public void shouldReturnFalseIfSuppliedPasswordDoesNotMatchUserPassword(){
+        String correctID = "000-0000";
+        String wrongPassword = "password";
+
+        User user2 = new User(correctID, wrongPassword);
+        assertNotEquals(user, user2);
+    }
 }

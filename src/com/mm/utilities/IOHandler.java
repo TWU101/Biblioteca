@@ -15,22 +15,21 @@ public class IOHandler {
 
     public int getUserInput() {
         String userInputString = scanner.next();
-        if (("login").equalsIgnoreCase(userInputString)){
+        if (("login").equalsIgnoreCase(userInputString)) {
             return MenuOption.LOGIN_OPTION;
         }
-        if (("logout").equalsIgnoreCase(userInputString)){
+        if (("logout").equalsIgnoreCase(userInputString)) {
             return MenuOption.LOGOUT_OPTION;
         }
-        if (("info").equalsIgnoreCase(userInputString)){
+        if (("info").equalsIgnoreCase(userInputString)) {
             return MenuOption.USERINFO_OPTION;
         }
-        if (("q".equalsIgnoreCase(userInputString)) || ("quit").equalsIgnoreCase(userInputString)){
+        if (("q".equalsIgnoreCase(userInputString)) || ("quit").equalsIgnoreCase(userInputString)) {
             return MenuOption.QUIT_OPTION;
         }
-        if (("b".equalsIgnoreCase(userInputString)) || ("back").equalsIgnoreCase(userInputString)){
+        if (("b".equalsIgnoreCase(userInputString)) || ("back").equalsIgnoreCase(userInputString)) {
             return MenuOption.BACK_OPTION;
         }
-
 
         try {
             return Integer.parseInt(userInputString);
@@ -58,7 +57,7 @@ public class IOHandler {
 
         int userSelectedOption = getUserInput();
 
-        if ((userSelectedOption > maxSize) || (userSelectedOption == MenuOption.INVALID_OPTION)){
+        if ((userSelectedOption > maxSize) || (userSelectedOption == MenuOption.INVALID_OPTION)) {
             printer.printEnterValidNumber();
             userSelectedOption = retrieveSelectedItemFromList(checkoutOrReturn, bookList, itemType);
         }

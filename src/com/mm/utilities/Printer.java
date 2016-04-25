@@ -3,15 +3,8 @@ package com.mm.utilities;
 import java.util.List;
 
 public class Printer {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_CYAN = "\u001B[36m";
 
     public void printMessage(String message) {
         System.out.println(message);
@@ -23,11 +16,11 @@ public class Printer {
         }
     }
 
-    public void printSeparator(){
+    private void printSeparator(){
         System.out.println("============================");
     }
 
-    public void printBlankLine(){
+    private void printBlankLine(){
         System.out.println();
     }
 
@@ -74,9 +67,10 @@ public class Printer {
 
     public void printWelcome(){
         printMessage("Welcome!");
+        printMessage("Type " + (char)27 + "[1mLOGIN" + (char)27 + "[0m to log in to the application. \nYou will need to log in to checkout or return items..");
     }
 
-    public void printQuitInstructions() {
+    private void printQuitInstructions() {
         printMessage("Type " + (char)27 + "[1mquit" + (char)27 + "[0m to exit the application.");
     }
 

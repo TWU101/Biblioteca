@@ -120,8 +120,12 @@ public class Application {
         loopMainMenu();
     }
 
+    private boolean isUserLoggedIn() {
+        return (!Objects.isNull(currentUser));
+    }
+
     private void login() {
-        if (currentUser != null) {
+        if (isUserLoggedIn()) {
             printer.printMessage("Someone is already logged in!");
             return;
         }
@@ -169,10 +173,6 @@ public class Application {
         library.checkOutItem(itemIndexToCheckout, currentUser);
         printer.printSuccesfulCheckoutMessage();
         return true;
-    }
-
-    private boolean isUserLoggedIn() {
-        return (!Objects.isNull(currentUser));
     }
 
     private boolean returnItem(Library library, String itemType) {
