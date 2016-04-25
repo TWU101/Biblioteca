@@ -6,7 +6,6 @@ import com.mm.utilities.MenuOption;
 import com.mm.utilities.Printer;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -27,7 +26,7 @@ public class Application {
         this.mainMenu = new ArrayList();
         this.printer = new Printer();
         this.ioHandler = new IOHandler(printer);
-        userList = new ArrayList<>();
+        this.userList = new ArrayList<>();
         this.currentUser = null;
     }
 
@@ -66,12 +65,8 @@ public class Application {
 
     public void execute() {
         setUp();
-        printWelcome();
-        loopMainMenu();
-    }
-
-    private void printWelcome() {
         printer.printWelcome();
+        loopMainMenu();
     }
 
     private void loopMainMenu() {
@@ -192,15 +187,11 @@ public class Application {
         return true;
     }
 
-    private List<Checkoutable> getCompleteLibrary(Library library) {
-        return library.getCompleteLibrary();
-    }
-
     private void printCompleteLibrary() {
         printer.printHeading("Books");
-        printer.printList(getCompleteLibrary(bookLibrary));
+        printer.printList(bookLibrary.getCompleteLibrary());
         printer.printHeading("Movies");
-        printer.printList(getCompleteLibrary(movieLibrary));
+        printer.printList(movieLibrary.getCompleteLibrary());
     }
 
     private boolean checkIfUserSelectedMenuOption(int selectedOption){

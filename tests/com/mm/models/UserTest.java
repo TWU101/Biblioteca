@@ -38,18 +38,16 @@ public class UserTest {
     @Test
     public void shouldReturnFalseIfSuppliedIDDoesNotMatchUserID(){
         String wrongID = "000-0000";
-        String correctPassword = "password";
 
-        User user2 = new User(wrongID, correctPassword);
+        User user2 = new User(wrongID, password);
         assertNotEquals(user, user2);
     }
 
     @Test
     public void shouldReturnFalseIfSuppliedPasswordDoesNotMatchUserPassword(){
-        String correctID = "000-0000";
-        String wrongPassword = "password";
+        String wrongPassword = "wrongPassword";
 
-        User user2 = new User(correctID, wrongPassword);
+        User user2 = new User(id, wrongPassword);
         assertNotEquals(user, user2);
     }
 }
