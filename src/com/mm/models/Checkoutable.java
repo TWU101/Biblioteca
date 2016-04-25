@@ -1,7 +1,7 @@
 package com.mm.models;
 
 public interface Checkoutable {
-    void checkOutItem();
+    void checkOutItem(User user);
     void returnItem();
     boolean isCheckedOut();
 }

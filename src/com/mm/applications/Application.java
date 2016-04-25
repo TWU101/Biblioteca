@@ -145,7 +145,7 @@ public class Application {
         }
 
         int itemIndexToCheckout = selectedOption - INDEX_OFFSET;
-        library.checkOutItem(itemIndexToCheckout);
+        library.checkOutItem(itemIndexToCheckout, currentUser);
         printer.printSuccesfulCheckoutMessage();
         return true;
     }

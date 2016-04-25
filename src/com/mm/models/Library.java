@@ -36,8 +36,8 @@ public class Library {
         return library;
     }
 
-    public void checkOutItem(int index) {
-        this.getAvailableItemList().get(index).checkOutItem();
+    public void checkOutItem(int index, User user) {
+        this.getAvailableItemList().get(index).checkOutItem(user);
     }
 
     public void returnItem(int index) {

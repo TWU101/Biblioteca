@@ -1,5 +1,6 @@
 package com.mm.models;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -7,7 +8,14 @@ import static org.mockito.Mockito.mock;
 
 
 public class LibraryTest {
-    Library library = new Library();
+    Library library;
+    User user;
+
+    @Before
+    public void setUp() {
+        library = new Library();
+        user = mock(User.class);
+    }
 
     @Test
     public void shouldAddBookToLibrary() {
@@ -26,10 +34,9 @@ public class LibraryTest {
         library.addToLibrary(book2);
 
         int sizeBeforeCheckout = library.getAvailableItemList().size();
-        library.checkOutItem(0);
+        library.checkOutItem(0, user);
         assertEquals(sizeBeforeCheckout-REDUCED_AMOUNT, library.getAvailableItemList().size());
     }
-
 
 
     @Test
@@ -40,7 +47,7 @@ public class LibraryTest {
         library.addToLibrary(book1);
         library.addToLibrary(book2);
 
-        library.checkOutItem(0);
+        library.checkOutItem(0, user);
         int sizeBeforeReturn = library.getAvailableItemList().size();
         library.returnItem(0);
         assertEquals(sizeBeforeReturn+INCREASE_AMOUNT, library.getAvailableItemList().size());

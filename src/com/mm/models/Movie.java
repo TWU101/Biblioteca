@@ -6,6 +6,7 @@ public class Movie implements Checkoutable {
     private String director;
     private String rating;
     private boolean checkedOut;
+    private User itemOwner;
 
     public Movie(String name, int year, String director, String rating) {
         this.name = name;
@@ -13,6 +14,7 @@ public class Movie implements Checkoutable {
         this.director = director;
         this.rating = rating;
         this.checkedOut = false;
+        this.itemOwner = null;
     }
 
     @Override
@@ -20,8 +22,9 @@ public class Movie implements Checkoutable {
         return name + " | " + year + " | " + director + " | " + rating;
     }
 
-    public void checkOutItem(){
+    public void checkOutItem(User user){
         checkedOut = true;
+        this.itemOwner = user;
     }
 
     public void returnItem(){

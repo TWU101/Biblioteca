@@ -6,12 +6,14 @@ public class Book implements Checkoutable{
     private String author;
     private int yearPublished;
     private boolean checkedOut;
+    private User itemOwner;
 
     public Book(String bookTitle, String bookAuthor, int bookYearPublished){
         title = bookTitle;
         author = bookAuthor;
         yearPublished = bookYearPublished;
         checkedOut = false;
+        itemOwner = null;
     }
 
     public String getTitle() {
@@ -26,8 +28,9 @@ public class Book implements Checkoutable{
         return yearPublished;
     }
 
-    public void checkOutItem() {
+    public void checkOutItem(User user) {
         checkedOut = true;
+        itemOwner = user;
     }
 
     @Override
