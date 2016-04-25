@@ -13,7 +13,7 @@ public class Application {
     private Library bookLibrary;
     private Library movieLibrary;
     private User currentUser;
-    private ArrayList <User> userList;
+    private ArrayList<User> userList;
     private ArrayList mainMenu;
     private Printer printer;
     private IOHandler ioHandler;
@@ -29,7 +29,7 @@ public class Application {
         this.currentUser = null;
     }
 
-    public void setUp(){
+    public void setUp() {
         bookLibrary.addToLibrary(new Book("Java for Dummies", "John Smith", 2005));
         bookLibrary.addToLibrary(new Book("Agile Samurai", "Abe Lincoln", 1995));
         bookLibrary.addToLibrary(new Book("TDD By Example", "Kent Beck", 2007));
@@ -117,10 +117,13 @@ public class Application {
 
         int currentUserIndex = userList.indexOf(userToCompareAgainst);
         if (currentUserIndex != -1) {
+            System.out.println("here");
             currentUser = userList.get(currentUserIndex);
+            printer.printLoggedInInstructions(currentUser.id);
+        } else if (currentUserIndex == -1) {
+            printer.printMessage("The user credentials are incorrect.");
         }
-        printer.printLoggedInInstructions(currentUser.id);
-
+        
     }
 
     private void logout() {
@@ -151,7 +154,7 @@ public class Application {
     }
 
     public boolean returnItem(Library library, String itemType) {
-        int selectedOption = ioHandler.retrieveSelectedItemFromList("Return", library.getCheckedOutItemList(), itemType);
+        int selectedOption = ioHandler.retrieveSelectedItemFromList("Return", library.getCheckedOutItemList(currentUser), itemType);
 
         if (selectedOption == MenuOption.BACK_OPTION) {
             return true;
@@ -161,7 +164,7 @@ public class Application {
         }
 
         int bookIndexToReturn = selectedOption - INDEX_OFFSET;
-        bookLibrary.returnItem(bookIndexToReturn);
+        bookLibrary.returnItem(bookIndexToReturn, currentUser);
         printer.printSuccessfullReturnMessage();
         return true;
     }

@@ -19,11 +19,7 @@ public class User {
         return password;
     }
 
-
-
-//    public boolean verifyCredentials(Object user) {
-//        return ((this.id ==  user.id) && (this.password == user.password));
-//    }
+    
 
     @Override
     public boolean equals(Object user) {

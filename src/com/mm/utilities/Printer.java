@@ -103,6 +103,7 @@ public class Printer {
     public void printLoggedInInstructions(String id){
         printMessage(ANSI_CYAN + "Welcome " + id + "!" + ANSI_RESET);
         printMessage(ANSI_CYAN + "Type " + (char)27 + "[1mLOGOUT" + (char)27 + ANSI_CYAN + " to log out of your current session." + ANSI_RESET);
+        printMessage(ANSI_CYAN + "Type " + (char)27 + "[1mINFO" + (char)27 + ANSI_CYAN + " to print out your user information." + ANSI_RESET);
     }
 
     public void printLoggedOut(String id){

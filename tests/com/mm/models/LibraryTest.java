@@ -49,7 +49,7 @@ public class LibraryTest {
 
         library.checkOutItem(0, user);
         int sizeBeforeReturn = library.getAvailableItemList().size();
-        library.returnItem(0);
+        library.returnItem(0, user);
         assertEquals(sizeBeforeReturn+INCREASE_AMOUNT, library.getAvailableItemList().size());
     }
 

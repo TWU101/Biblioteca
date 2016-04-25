@@ -22,10 +22,11 @@ public class Library {
         return availableItems;
     }
 
-    public ArrayList<Checkoutable> getCheckedOutItemList() {
+    public ArrayList<Checkoutable> getCheckedOutItemList(User user) {
         ArrayList<Checkoutable> checkedOutItems = new ArrayList<>();
         for (Checkoutable item : library) {
             if (item.isCheckedOut()){
+                if (item.getOwner().equals(user))
                 checkedOutItems.add(item);
             }
         }
@@ -40,7 +41,7 @@ public class Library {
         this.getAvailableItemList().get(index).checkOutItem(user);
     }
 
-    public void returnItem(int index) {
-        this.getCheckedOutItemList().get(index).returnItem();
+    public void returnItem(int index, User user) {
+        this.getCheckedOutItemList(user).get(index).returnItem(user);
     }
 }

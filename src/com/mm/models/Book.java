@@ -39,11 +39,16 @@ public class Book implements Checkoutable{
     }
 
 
-    public void returnItem() {
+    public void returnItem(User user) {
         checkedOut = false;
+        itemOwner = null;
     }
 
     public boolean isCheckedOut(){
         return checkedOut;
+    }
+
+    public User getOwner() {
+        return itemOwner;
     }
 }

@@ -21,12 +21,16 @@ public class IOHandler {
         if (("logout").equalsIgnoreCase(userInputString)){
             return MenuOption.LOGOUT_OPTION;
         }
+        if (("info").equalsIgnoreCase(userInputString)){
+            return MenuOption.USERINFO_OPTION;
+        }
         if (("q".equalsIgnoreCase(userInputString)) || ("quit").equalsIgnoreCase(userInputString)){
             return MenuOption.QUIT_OPTION;
         }
         if (("b".equalsIgnoreCase(userInputString)) || ("back").equalsIgnoreCase(userInputString)){
             return MenuOption.BACK_OPTION;
         }
+
 
         try {
             return Integer.parseInt(userInputString);
