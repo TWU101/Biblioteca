@@ -7,6 +7,7 @@ import com.mm.utilities.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Application {
@@ -18,6 +19,7 @@ public class Application {
     private Printer printer;
     private IOHandler ioHandler;
     private final static int INDEX_OFFSET = 1;
+    private final static int SELECTION_IS_MENU_OPTION = 0;
 
     public Application() {
         this.bookLibrary = new Library();
@@ -29,7 +31,7 @@ public class Application {
         this.currentUser = null;
     }
 
-    public void setUp() {
+    private void setUp() {
         bookLibrary.addToLibrary(new Book("Java for Dummies", "John Smith", 2005));
         bookLibrary.addToLibrary(new Book("Agile Samurai", "Abe Lincoln", 1995));
         bookLibrary.addToLibrary(new Book("TDD By Example", "Kent Beck", 2007));
@@ -40,10 +42,20 @@ public class Application {
         movieLibrary.addToLibrary(new Movie("Guardians of the Galaxy", 2014, "James Gunn", "7"));
         movieLibrary.addToLibrary(new Movie("Up", 2009, "Pete Docter", "9"));
 
-        userList.add(new User("123-4567", "password"));
-        userList.add(new User("000-1111", "zeroone"));
-        userList.add(new User("987-6543", "ninesix"));
-        userList.add(new User("111-2222", "onetwo"));
+        User john = new User("123-4567", "password");
+        User mark = new User("000-1111", "zeroone");
+        User will = new User("987-6543", "ninesix");
+        User debra = new User("111-2222", "onetwo");
+
+        john.setInfo("John", "john@tw.com", "555-111-2222");
+        mark.setInfo("Mark", "mark@tw.com", "555-000-6281");
+        will.setInfo("Will", "will@tw.com", "555-987-9182");
+        debra.setInfo("Debra", "debra@tw.com", "555-576-0648");
+
+        userList.add(john);
+        userList.add(mark);
+        userList.add(will);
+        userList.add(debra);
 
         mainMenu.add("List All Books and Movies");
         mainMenu.add("Checkout Book");
@@ -58,11 +70,11 @@ public class Application {
         loopMainMenu();
     }
 
-    public void printWelcome() {
+    private void printWelcome() {
         printer.printWelcome();
     }
 
-    public void loopMainMenu() {
+    private void loopMainMenu() {
         int userSelectedMenuOption = ioHandler.retrieveMainMenuOption(mainMenu);
         boolean continueLooping = true;
 
@@ -72,6 +84,9 @@ public class Application {
                 break;
             case MenuOption.LOGOUT_OPTION:
                 logout();
+                break;
+            case MenuOption.USERINFO_OPTION:
+                printUserInfo();
                 break;
             case MenuOption.BACK_OPTION:
                 printer.printCantGoBack();
@@ -119,15 +134,15 @@ public class Application {
         if (currentUserIndex != -1) {
             System.out.println("here");
             currentUser = userList.get(currentUserIndex);
-            printer.printLoggedInInstructions(currentUser.id);
+            printer.printLoggedInInstructions(currentUser.getID());
         } else if (currentUserIndex == -1) {
             printer.printMessage("The user credentials are incorrect.");
         }
-        
+
     }
 
     private void logout() {
-        if (currentUser != null) {
+        if (isUserLoggedIn()) {
             String currentID = currentUser.getID();
             currentUser = null;
             printer.printLoggedOut(currentID);
@@ -136,16 +151,19 @@ public class Application {
         }
     }
 
-    public boolean checkOutItem(Library library, String itemType) {
+    private boolean checkOutItem(Library library, String itemType) {
+
+        if (!isUserLoggedIn()) {
+            printer.printMessage("You must log in first.");
+            return true;
+        }
+
         int selectedOption = ioHandler.retrieveSelectedItemFromList("Checkout", library.getAvailableItemList(), itemType);
 
-        if (selectedOption == MenuOption.BACK_OPTION) {
-            System.out.println(selectedOption);
-            return true;
-        } else if (selectedOption == MenuOption.QUIT_OPTION) {
-            printer.printMessage("BYEBYE");
-            return false;
+        if (selectedOption <= SELECTION_IS_MENU_OPTION ) {
+            return checkIfUserSelectedMenuOption(selectedOption);
         }
+
 
         int itemIndexToCheckout = selectedOption - INDEX_OFFSET;
         library.checkOutItem(itemIndexToCheckout, currentUser);
@@ -153,14 +171,19 @@ public class Application {
         return true;
     }
 
-    public boolean returnItem(Library library, String itemType) {
+    private boolean isUserLoggedIn() {
+        return (!Objects.isNull(currentUser));
+    }
+
+    private boolean returnItem(Library library, String itemType) {
+        if (!isUserLoggedIn()) {
+            printer.printMessage("You must log in first.");
+            return true;
+        }
         int selectedOption = ioHandler.retrieveSelectedItemFromList("Return", library.getCheckedOutItemList(currentUser), itemType);
 
-        if (selectedOption == MenuOption.BACK_OPTION) {
-            return true;
-        } else if (selectedOption == MenuOption.QUIT_OPTION) {
-            printer.printMessage("BYEBYE");
-            return false;
+        if (selectedOption <= SELECTION_IS_MENU_OPTION ) {
+            return checkIfUserSelectedMenuOption(selectedOption);
         }
 
         int bookIndexToReturn = selectedOption - INDEX_OFFSET;
@@ -169,15 +192,43 @@ public class Application {
         return true;
     }
 
-    public List<Checkoutable> getCompleteLibrary(Library library) {
+    private List<Checkoutable> getCompleteLibrary(Library library) {
         return library.getCompleteLibrary();
     }
 
-    public void printCompleteLibrary() {
+    private void printCompleteLibrary() {
         printer.printHeading("Books");
         printer.printList(getCompleteLibrary(bookLibrary));
         printer.printHeading("Movies");
         printer.printList(getCompleteLibrary(movieLibrary));
+    }
+
+    private boolean checkIfUserSelectedMenuOption(int selectedOption){
+
+        if (selectedOption == MenuOption.BACK_OPTION) {
+            return true;
+        }
+
+        if (selectedOption == MenuOption.QUIT_OPTION) {
+            printer.printMessage("BYEBYE");
+            return false;
+        }
+
+        if (selectedOption == MenuOption.LOGOUT_OPTION) {
+            logout();
+            return true;
+        }
+
+        return true;
+    }
+
+    private void printUserInfo() {
+        if (!isUserLoggedIn()) {
+            printer.printMessage("You must log in first!");
+            return;
+        }
+
+        printer.printMessage(currentUser.toString());
     }
 
 }

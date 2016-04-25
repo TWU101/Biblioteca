@@ -9,7 +9,7 @@ public class ApplicationTest {
     @Before
     public void setUp() throws Exception {
         application = new Application();
-        application.setUp();
+        application.execute();
     }
 
 

@@ -2,13 +2,22 @@ package com.mm.models;
 
 public class User {
 
-    public String id;
-    public String password;
+    private String id;
+    private String password;
+    private String name;
+    private String email;
+    private String phone;
 
     public User(String id, String password) {
 
         this.id = id;
         this.password = password;
+    }
+
+    public void setInfo(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
     }
 
     public String getID() {
@@ -19,7 +28,6 @@ public class User {
         return password;
     }
 
-    
 
     @Override
     public boolean equals(Object user) {
@@ -30,6 +38,11 @@ public class User {
         return false;
     }
 
-
+    @Override
+    public String toString() {
+        return  "Name: " + name + "\n" +
+                "Phone: " + phone + "\n" +
+                "Email: " + email + "\n";
+    }
 }
 
